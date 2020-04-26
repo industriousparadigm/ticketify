@@ -1,6 +1,6 @@
 # Ticketify
 
-This should be production grade application fully developed with a microservices architecture.
+This should be a production grade application fully developed with a microservices architecture.
 
 The juicy buzzwords associated with it are:
 

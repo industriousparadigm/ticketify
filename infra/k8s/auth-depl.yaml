@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: auth
-          image: diogocostaeu/auth
+          image: us.gcr.io/ticketify-dev/auth
 ---
 apiVersion: v1
 kind: Service

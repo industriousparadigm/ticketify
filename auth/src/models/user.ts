@@ -1,4 +1,10 @@
 import mongoose from 'mongoose'
+import { Password } from '../services/password'
+
+/**
+ * Mongoose and TypeScript are a bad match, so we need to hack
+ * our way into getting proper type checking.
+ */
 
 // interface for new User props
 interface UserAttrs {
@@ -28,13 +34,18 @@ const userSchema = new mongoose.Schema({
   },
 })
 
+userSchema.pre('save', async function (done) {
+  if (this.isModified('password')) {
+    // we can access the current user's password with get()
+    const hashed = await Password.toHash(this.get('password'))
+    this.set('password', hashed)
+  }
+  done()
+})
+
+// add method to mongoose's Schema to build user in a typesafe fashion
 userSchema.statics.build = (attrs: UserAttrs) => new User(attrs)
 
 const User = mongoose.model<UserDoc, UserModel>('User', userSchema)
-
-const user = User.build({
-  email: 'didio@fsm.sc',
-  password: '12345',
-})
 
 export { User }

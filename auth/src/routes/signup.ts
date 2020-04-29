@@ -1,12 +1,14 @@
 import express, { Request, Response } from 'express'
 import { body, validationResult } from 'express-validator'
+import { User } from '../models/user'
 import { RequestValidationError } from '../errors/request-validation-error'
-import { DatabaseConnectionError } from '../errors/database-connection-error'
+import { BadRequestError } from '../errors/bad-request-error'
 
 const router = express.Router()
 
 router.post(
   '/api/users/signup',
+  // express-validator checks the inputs
   [
     body('email').isEmail().withMessage('Enter a valid email'),
     body('password')
@@ -14,17 +16,26 @@ router.post(
       .isLength({ min: 4, max: 20 })
       .withMessage('Password must be 4-20 characters'),
   ],
-  (req: Request, res: Response) => {
+  async (req: Request, res: Response) => {
+    // stop if express validator found errors
     const errors = validationResult(req)
-
-    if (!errors.isEmpty()) throw new RequestValidationError(errors.array())
+    if (!errors.isEmpty()) {
+      throw new RequestValidationError(errors.array())
+    }
 
     const { email, password } = req.body
 
-    console.log('creating a user!')
-    throw new DatabaseConnectionError()
+    // stop if this user already exists
+    const existingUser = await User.findOne({ email })
+    if (existingUser) {
+      throw new BadRequestError('Email in use')
+    }
 
-    res.send({})
+    const user = User.build({ email, password })
+
+    await user.save()
+
+    res.status(201).send(user)
   }
 )
 

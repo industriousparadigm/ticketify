@@ -1,6 +1,6 @@
 # Ticketify
 
-![container sky](https://unsplash.com/photos/XsP7GCLMWjM)
+![containers rainbow](https://www.bigboxcontainers.co.za/wp-content/uploads/2017/05/fremantle-rainbow-container-artwork-sculpture.jpg)
 
 This should be a production grade application fully developed with a microservices architecture.
 

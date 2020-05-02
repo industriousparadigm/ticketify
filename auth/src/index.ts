@@ -3,9 +3,9 @@ import 'express-async-errors'
 import mongoose from 'mongoose'
 import cookieSession from 'cookie-session'
 import { currentUserRouter } from './routes/current-user'
+import { signupRouter } from './routes/signup'
 import { signinRouter } from './routes/signin'
 import { signoutRouter } from './routes/signout'
-import { signupRouter } from './routes/signup'
 import { errorHandler } from './middlewares/error-handler'
 
 const app = express()
@@ -20,13 +20,15 @@ app.use(
 )
 
 app.use(currentUserRouter)
-app.use(signinRouter)
 app.use(signupRouter)
+app.use(signinRouter)
 app.use(signoutRouter)
 
 app.use(errorHandler)
 
 const start = async () => {
+  if (!process.env.JWT_KEY) throw new Error('JWT_KEY not defined')
+
   try {
     await mongoose.connect('mongodb://auth-mongo-srv:27017/auth', {
       useNewUrlParser: true,

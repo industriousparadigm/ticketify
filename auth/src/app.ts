@@ -14,7 +14,8 @@ app.use(express.json())
 app.use(
   cookieSession({
     signed: false,
-    secure: true,
+    // secure should be true, except in testing
+    secure: process.env.NODE_ENV !== 'test',
   })
 )
 

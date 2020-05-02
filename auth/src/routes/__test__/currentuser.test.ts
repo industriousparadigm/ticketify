@@ -2,7 +2,6 @@ import request from 'supertest'
 import { app } from '../../app'
 
 it('returns details on current user', async () => {
-  // auth cookie uses 'test@diogo.com'
   const authCookie = await global.getAuthCookie()
 
   const response = await request(app)
@@ -11,6 +10,7 @@ it('returns details on current user', async () => {
     .send()
     .expect(200)
 
+  // auth cookie uses 'test@diogo.com'
   expect(response.body.currentUser.email).toEqual('test@diogo.com')
 })
 

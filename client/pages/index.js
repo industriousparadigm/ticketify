@@ -1,7 +1,7 @@
 import React from 'react'
 
 const index = () => {
-  return <h1>hello NEXTJS!! Let's get this show on the road locally</h1>
+  return <h1>hello NEXTJS!! How do you do</h1>
 }
 
 export default index

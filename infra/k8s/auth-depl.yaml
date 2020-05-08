@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: auth
-          image: diogocostaeu/auth
+          image: us.gcr.io/ticketify-dev/auth
           env:
             - name: JWT_KEY
               valueFrom:

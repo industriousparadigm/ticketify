@@ -5,10 +5,12 @@ deploy:
     manifests:
       - ./infra/k8s/*
 build:
-  local:
-    push: false
+  # local:
+  #   push: false
+  googleCloudBuild:
+    projectId: ticketify-dev
   artifacts:
-    - image: diogocostaeu/auth
+    - image: us.gcr.io/ticketify-dev/auth
       context: auth
       docker:
         dockerfile: Dockerfile
@@ -16,9 +18,8 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest: .
-    # image can be remote or local
-    # - image: us.gcr.io/ticketify-dev/client
-    - image: diogocostaeu/client
+    - image: us.gcr.io/ticketify-dev/client
+      # - image: diogocostaeu/client
       context: client
       docker:
         dockerfile: Dockerfile

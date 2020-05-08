@@ -14,7 +14,9 @@ spec:
     spec:
       containers:
         - name: client
-          image: us.gcr.io/ticketify-dev/client
+          # the image can be remote or local
+          # image: us.gcr.io/ticketify-dev/auth
+          image: diogocostaeu/client
 ---
 apiVersion: v1
 kind: Service

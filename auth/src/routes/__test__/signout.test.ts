@@ -11,7 +11,7 @@ it('clears the user cookie on signout', async () => {
     .expect(201)
 
   const response = await request(app)
-    .post('/api/users/signout')
+    .get('/api/users/signout')
     .send({})
     .expect(200)
 

@@ -1,7 +1,14 @@
 import React from 'react'
+import buildClient from '../api/build-client'
 
-const index = () => {
-  return <h1>hello NEXTJS!! How do you do</h1>
+const LandingPage = ({ currentUser }) => (
+  <h1>{currentUser ? 'You are signed in' : 'Unauthenticated user :('}</h1>
+)
+
+LandingPage.getInitialProps = async (context) => {
+  const client = buildClient(context)
+  const { data } = await client.get('api/users/currentuser')
+  return data
 }
 
-export default index
+export default LandingPage

@@ -9,21 +9,21 @@ const Header = ({ currentUser }) => {
   ]
     .filter(Boolean)
     .map(({ href, label }) => (
-      <li className='nav-item' key={href}>
+      <li className="nav-item" key={href}>
         <Link href={href}>
-          <a className='nav-link'>{label}</a>
+          <a className="nav-link">{label}</a>
         </Link>
       </li>
     ))
 
   return (
-    <nav className='navbar navbar-light bg-light'>
-      <Link href='/'>
-        <a className='navbar-brand'>Ticketify</a>
+    <nav className="navbar navbar-light bg-light">
+      <Link href="/">
+        <a className="navbar-brand">Ticketify</a>
       </Link>
 
-      <div className='d-flex justify-content-end'>
-        <ul className='nav d-flex align-items-center'>{navOptions}</ul>
+      <div className="d-flex justify-content-end">
+        <ul className="nav d-flex align-items-center">{navOptions}</ul>
       </div>
     </nav>
   )
